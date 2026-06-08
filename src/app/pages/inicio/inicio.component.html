@@ -1,0 +1,168 @@
+<!-- SLIDER -->
+<section class="slider-section">
+  <div class="slider-track" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+    <div class="slide" *ngFor="let slide of slides" [style.background]="slide.bg">
+      <div class="slide-overlay"></div>
+      <img [src]="slide.img" [alt]="slide.title" class="slide-img" />
+      <div class="slide-content" [class]="'align-' + slide.align">
+        <h2 class="slide-title">{{ slide.title }}</h2>
+        <p class="slide-desc">{{ slide.desc }}</p>
+        <a href="#" class="slide-cta">{{ slide.cta }} <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+  <button class="arrow arrow-left" (click)="prev()"><i class="fas fa-chevron-left"></i></button>
+  <button class="arrow arrow-right" (click)="next()"><i class="fas fa-chevron-right"></i></button>
+  <div class="dots">
+    <button class="dot" *ngFor="let slide of slides; let i = index"
+      [class.active]="i === currentSlide" (click)="goTo(i)"></button>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" [style.width]="progressWidth + '%'"></div></div>
+</section>
+
+<!-- CATEGORÍAS RÁPIDAS -->
+<section class="quick-cats">
+  <div class="container">
+    <a href="#" class="qcat-item" *ngFor="let cat of quickCats">
+      <div class="qcat-icon"><i [class]="cat.icon"></i></div>
+      <span>{{ cat.name }}</span>
+    </a>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section class="about-section">
+  <div class="container about-grid">
+    <div class="about-img-wrap">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Nosotros" />
+      <div class="about-badge"><span class="badge-num">+10</span><span class="badge-txt">años de experiencia</span></div>
+    </div>
+    <div class="about-text">
+      <span class="section-label">Quiénes somos</span>
+      <h2 class="section-title">Lorem ipsum <br>una tienda</h2>
+      <p>lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <ul class="about-list">
+        <li *ngFor="let item of aboutPoints">
+          <i class="fas fa-check-circle"></i>
+          <span>{{ item }}</span>
+        </li>
+      </ul>
+      <a href="/nosotros" class="btn-primary">Conoce nuestra historia <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- TIENDA - PRODUCTOS DESTACADOS -->
+<section class="store-section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-label">Tienda</span>
+        <h2 class="section-title">Productos destacados</h2>
+      </div>
+      <a href="/tienda" class="link-all">Ver todo <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let p of featuredProducts">
+        <div class="product-img-wrap">
+          <img [src]="p.img" [alt]="p.name" />
+          <!-- <span class="product-badge" *ngIf="p.badge">{{ p.badge }}</span> -->
+          <button class="product-fav"><i class="fas fa-heart"></i></button>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">{{ p.category }}</span>
+          <h3 class="product-name">{{ p.name }}</h3>
+          <div class="product-rating">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]" [class.empty]="s > p.stars"></i>
+            <span>({{ p.reviews }})</span>
+          </div>
+          <div class="product-price-row">
+            <span class="product-price">S/ {{ p.price }}</span>
+            <span class="product-old" *ngIf="p.oldPrice">S/ {{ p.oldPrice }}</span>
+          </div>
+          <button class="btn-cart"><i class="fas fa-shopping-cart"></i> Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER PROMOCIONAL -->
+<section class="promo-banner">
+  <div class="container promo-inner">
+    <div class="promo-text">
+      <span class="promo-sub">Oferta limitada</span>
+      <h2>Hasta <strong>50% de descuento</strong> en productos seleccionados</h2>
+      <a href="/tienda" class="btn-white">Aprovechar ahora <i class="fas fa-tag"></i></a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?w=600&q=80" alt="Oferta" class="promo-img" />
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="section-label">Blog</span>
+        <h2 class="section-title">Últimas noticias</h2>
+      </div>
+      <a href="/blog" class="link-all">Ver todo <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card" *ngFor="let post of blogPosts">
+        <div class="blog-img-wrap">
+          <img [src]="post.img" [alt]="post.title" />
+          <span class="blog-tag">{{ post.tag }}</span>
+        </div>
+        <div class="blog-body">
+          <span class="blog-date"><i class="fas fa-calendar-alt"></i> {{ post.date }}</span>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+          <a href="/blog" class="blog-link">Leer más <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact-section">
+  <div class="container contact-grid">
+    <div class="contact-info">
+      <span class="section-label">Contacto</span>
+      <h2 class="section-title">¿Tienes alguna<br>pregunta?</h2>
+      <p>Estamos aquí para ayudarte. Escríbenos o llámanos y te responderemos a la brevedad posible.</p>
+      <div class="contact-items">
+        <div class="contact-item" *ngFor="let c of contactInfo">
+          <div class="contact-icon"><i [class]="c.icon"></i></div>
+          <div>
+            <strong>{{ c.label }}</strong>
+            <span>{{ c.value }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" (submit)="$event.preventDefault()">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@email.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Asunto</label>
+        <input type="text" placeholder="¿En qué podemos ayudarte?" />
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary full">Enviar mensaje <i class="fas fa-paper-plane"></i></button>
+    </form>
+  </div>
+</section>

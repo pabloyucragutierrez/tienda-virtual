@@ -1,0 +1,97 @@
+<div class="header-wrapper">
+
+  <header class="main-header">
+    <div class="header-inner">
+
+      <div class="header-left">
+        <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
+        <a href="/" class="logo-link">
+          <img src="https://kintiny.pe/img/kintiny_azul.png" alt="Logo" class="logo-img" />
+        </a>
+      </div>
+
+      <div class="header-center">
+        <div class="search-bar" [class.focused]="searchFocused">
+          <i class="fas fa-search search-icon-left"></i>
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            class="search-input"
+            [(ngModel)]="searchQuery"
+            (focus)="searchFocused = true"
+            (blur)="searchFocused = false"
+          />
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="auth-area" (click)="toggleUserMenu()" [class.active]="userMenuOpen">
+          <i class="fas fa-user-circle auth-icon"></i>
+          <div class="auth-text">
+            <span class="auth-greeting">¡Hola!</span>
+            <span class="auth-action">Inicia sesión</span>
+          </div>
+          <i class="fas fa-chevron-down auth-chevron"></i>
+
+          <div class="user-dropdown" *ngIf="userMenuOpen">
+            <a href="#" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+            <a href="#" class="dropdown-item"><i class="fas fa-user-plus"></i> Registrarse</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item"><i class="fas fa-box"></i> Mis pedidos</a>
+          </div>
+        </div>
+
+        <button class="cart-btn">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge">3</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="menu-overlay" [class.visible]="menuOpen" (click)="closeMenu()"></div>
+
+  <nav class="side-nav" [class.open]="menuOpen">
+    <div class="side-nav-header">
+      <img src="https://kintiny.pe/img/kintiny_azul.png" alt="Logo" class="side-logo" />
+      <button class="close-nav" (click)="closeMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <ul class="nav-links">
+      <li *ngFor="let link of navLinks" [class.active]="activeLink === link.id">
+        <a [href]="link.href" (click)="setActive(link.id)">
+          <i [class]="link.icon"></i>
+          <span>{{ link.label }}</span>
+          <i class="fas fa-chevron-right arrow"></i>
+        </a>
+      </li>
+    </ul>
+
+    <div class="categories-section">
+      <h3 class="categories-title">
+        <i class="fas fa-th-large"></i> Categorías
+      </h3>
+      <div class="categories-list">
+        <a href="#" class="category-row" *ngFor="let cat of categories">
+          <div class="cat-icon-wrap">
+            <i [class]="cat.icon"></i>
+          </div>
+          <span class="cat-name">{{ cat.name }}</span>
+          <i class="fas fa-chevron-right cat-arrow"></i>
+        </a>
+      </div>
+    </div>
+
+  </nav>
+
+</div>
