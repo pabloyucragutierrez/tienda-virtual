@@ -1,1 +1,100 @@
-<p>nosotros works!</p>
+<section class="hero-nosotros">
+  <div class="hero-overlay"></div>
+  <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&q=80" alt="Nosotros" class="hero-img" />
+  <div class="hero-content">
+    <span class="hero-label">Quiénes somos</span>
+    <h1>Una empresa hecha<br>con pasión y propósito</h1>
+    <p>Desde nuestros inicios hemos trabajado para ofrecerte los mejores productos con el mejor servicio.</p>
+  </div>
+</section>
+
+<section class="historia-section">
+  <div class="container historia-grid">
+    <div class="historia-text">
+      <span class="section-label">Nuestra historia</span>
+      <h2 class="section-title">De una idea a<br>una realidad</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quos dolorum, maiores dolorem praesentium minima assumenda nemo cumque iure ipsam sunt quod inventore incidunt fugit voluptates tempora culpa asperiores iste perferendis hic et fuga! Quod in facere laboriosam rerum deleniti?</p>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore cupiditate dicta iusto consequuntur eligendi ducimus dolores voluptate rem facilis aliquam.</p>
+      <div class="stats-row">
+        <div class="stat-item" *ngFor="let stat of stats">
+          <span class="stat-num">{{ stat.num }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="historia-imgs">
+      <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=80" alt="Historia" class="img-main" />
+      <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&q=80" alt="Equipo" class="img-secondary" />
+    </div>
+  </div>
+</section>
+
+<section class="valores-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-label">Lo que nos mueve</span>
+      <h2 class="section-title">Nuestros valores</h2>
+      <p class="section-sub">Cada decisión que tomamos está guiada por principios que nos definen como empresa y como personas.</p>
+    </div>
+    <div class="valores-grid">
+      <div class="valor-card" *ngFor="let valor of valores">
+        <div class="valor-icon"><i [class]="valor.icon"></i></div>
+        <h3>{{ valor.title }}</h3>
+        <p>{{ valor.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="equipo-section">
+  <div class="container">
+    <div class="section-center">
+      <span class="section-label">Las personas detrás</span>
+      <h2 class="section-title">Nuestro equipo</h2>
+      <p class="section-sub">Un grupo diverso, talentoso y comprometido que trabaja cada día para darte la mejor experiencia.</p>
+    </div>
+    <div class="equipo-grid">
+      <div class="miembro-card" *ngFor="let miembro of equipo">
+        <div class="miembro-img-wrap">
+          <img [src]="miembro.img" [alt]="miembro.name" />
+          <div class="miembro-social">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="miembro-info">
+          <h3>{{ miembro.name }}</h3>
+          <span>{{ miembro.role }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="mision-vision">
+  <div class="container mv-grid">
+    <div class="mv-card mision">
+      <div class="mv-icon"><i class="fas fa-bullseye"></i></div>
+      <h3>Nuestra misión</h3>
+      <p>Conectar a las personas con los productos que necesitan, ofreciendo una experiencia de compra fácil, segura y satisfactoria, con precios justos y atención de calidad.</p>
+    </div>
+    <div class="mv-card vision">
+      <div class="mv-icon"><i class="fas fa-binoculars"></i></div>
+      <h3>Nuestra visión</h3>
+      <p>Ser la tienda online líder en Perú y referente en Latinoamérica, reconocida por la confianza de nuestros clientes, la calidad de nuestros productos y el impacto positivo en nuestra comunidad.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <h2>¿Listo para empezar a comprar?</h2>
+      <p>Descubre miles de productos con envío rápido y garantía de satisfacción.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="/tienda" class="btn-primary">Ver tienda <i class="fas fa-arrow-right"></i></a>
+      <a href="/contacto" class="btn-outline">Contáctanos</a>
+    </div>
+  </div>
+</section>
