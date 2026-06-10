@@ -71,6 +71,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  margin-top: 4.2rem;
 }
 
 .hero-img {

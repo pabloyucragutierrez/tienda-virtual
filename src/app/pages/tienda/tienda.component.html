@@ -1,1 +1,145 @@
-<p>tienda works!</p>
+<div class="tienda-page">
+
+  <!-- <div class="tienda-hero">
+    <div class="container">
+      <h1>Tienda</h1>
+      <p>Encuentra todo lo que necesitas en un solo lugar</p>
+    </div>
+  </div> -->
+
+  <div class="container tienda-layout">
+
+    <aside class="sidebar">
+
+      <div class="sidebar-block">
+        <h4>Categorías</h4>
+        <ul class="cat-list">
+          <li *ngFor="let cat of categorias"
+            [class.active]="categoriaActiva === cat.id"
+            (click)="setCat(cat.id)">
+            <i [class]="cat.icon"></i>
+            <span>{{ cat.name }}</span>
+            <span class="cat-count">{{ cat.count }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <h4>Precio</h4>
+        <div class="price-slider-wrap">
+          <div class="price-labels">
+            <span>S/ {{ precioMin }}</span>
+            <span>S/ {{ precioMax }}</span>
+          </div>
+          <div class="range-track" #trackRef (mousedown)="onTrackClick($event, trackRef)">
+            <div class="range-fill" [style.left]="minPercent + '%'" [style.width]="(maxPercent - minPercent) + '%'"></div>
+            <div class="range-thumb thumb-min"
+              [style.left]="minPercent + '%'"
+              (mousedown)="startDrag($event, 'min')"></div>
+            <div class="range-thumb thumb-max"
+              [style.left]="maxPercent + '%'"
+              (mousedown)="startDrag($event, 'max')"></div>
+          </div>
+          <div class="price-range-info">
+            <span>S/ {{ PRICE_MIN }}</span>
+            <span>S/ {{ PRICE_MAX }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-block">
+        <h4>Color</h4>
+        <div class="color-grid">
+          <button *ngFor="let color of colores"
+            class="color-btn"
+            [class.active]="colorActivo === color.id"
+            [title]="color.name"
+            (click)="setColor(color.id)">
+            <span class="color-dot" [style.background]="color.hex"></span>
+            <span class="color-name">{{ color.name }}</span>
+          </button>
+        </div>
+      </div>
+
+    </aside>
+
+    <div class="main-content">
+
+      <div class="toolbar">
+        <span class="results-count">{{ productosFiltrados.length }} productos</span>
+        <div class="toolbar-right">
+          <div class="search-inline">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar en tienda..." [(ngModel)]="busqueda" (input)="applyFilters()" />
+          </div>
+          <!-- <select class="sort-select" [(ngModel)]="orden" (change)="applyFilters()">
+            <option value="precio-asc">Precio: menor a mayor</option>
+            <option value="precio-desc">Precio: mayor a menor</option>
+            <option value="nombre">Nombre A–Z</option>
+          </select> -->
+        </div>
+      </div>
+
+      <div class="active-filters" *ngIf="hasActiveFilters()">
+        <span class="filter-chip" *ngIf="categoriaActiva !== 'todos'" (click)="setCat('todos')">
+          {{ getCatName(categoriaActiva) }} <i class="fas fa-times"></i>
+        </span>
+        <span class="filter-chip" *ngIf="colorActivo !== 'todos'" (click)="setColor('todos')">
+          {{ getColorName(colorActivo) }} <i class="fas fa-times"></i>
+        </span>
+        <span class="filter-chip" *ngIf="precioMin > PRICE_MIN || precioMax < PRICE_MAX" (click)="resetPrices()">
+          S/ {{ precioMin }} – S/ {{ precioMax }} <i class="fas fa-times"></i>
+        </span>
+        <span class="filter-chip clear-all" (click)="clearFilters()">
+          Limpiar todo <i class="fas fa-times"></i>
+        </span>
+      </div>
+
+      <div class="products-wrap" *ngIf="productosFiltrados.length > 0">
+        <div class="product-card" *ngFor="let p of productosPaginados">
+          <div class="product-img-wrap">
+            <img [src]="p.img" [alt]="p.name" />
+            <!-- <span class="product-badge" *ngIf="p.badge">{{ p.badge }}</span> -->
+            <button class="product-fav"><i class="fas fa-heart"></i></button>
+          </div>
+          <div class="product-info">
+            <span class="product-cat">{{ p.category }}</span>
+            <h3 class="product-name">{{ p.name }}</h3>
+            <div class="product-rating">
+              <i class="fas fa-star" *ngFor="let s of getArr(p.stars)"></i>
+              <i class="far fa-star" *ngFor="let s of getArr(5 - p.stars)"></i>
+              <span>({{ p.reviews }})</span>
+            </div>
+            <div class="product-bottom">
+              <div class="product-price-row">
+                <span class="product-price">S/ {{ p.price }}</span>
+                <span class="product-old" *ngIf="p.oldPrice">S/ {{ p.oldPrice }}</span>
+              </div>
+              <button class="btn-cart"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="productosFiltrados.length === 0">
+        <i class="fas fa-box-open"></i>
+        <h3>Sin resultados</h3>
+        <p>No encontramos productos con esos filtros.</p>
+        <button class="btn-primary" (click)="clearFilters()">Limpiar filtros</button>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button (click)="goPage(paginaActual - 1)" [disabled]="paginaActual === 1">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button *ngFor="let p of getPagesArr()"
+          [class.active]="p === paginaActual"
+          (click)="goPage(p)">{{ p }}</button>
+        <button (click)="goPage(paginaActual + 1)" [disabled]="paginaActual === totalPages">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
