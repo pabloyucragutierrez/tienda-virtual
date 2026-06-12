@@ -1,1 +1,84 @@
-<p>blog works!</p>
+<div class="blog-page">
+
+  <div class="blog-hero">
+    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1400&q=80" alt="Blog" class="hero-img" />
+    <div class="hero-content">
+      <span class="hero-label">Nuestro blog</span>
+      <h1>Ideas, consejos y<br>tendencias para ti</h1>
+      <p>Artículos pensados para ayudarte a elegir mejor, vivir mejor y comprar mejor.</p>
+    </div>
+  </div>
+
+  <div class="container blog-layout">
+
+    <div class="main-content">
+
+      <div class="tabs">
+        <button *ngFor="let tab of tabs"
+          [class.active]="tabActivo === tab.id"
+          (click)="setTab(tab.id)">
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <div class="posts-grid" *ngIf="postsFiltrados.length > 0">
+        <article class="post-card" *ngFor="let post of postsPaginados">
+          <div class="post-img-wrap">
+            <img [src]="post.img" [alt]="post.title" />
+            <span class="post-tag">{{ post.tag }}</span>
+          </div>
+          <div class="post-body">
+            <span class="post-date"><i class="fas fa-calendar-alt"></i> {{ post.date }}</span>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt }}</p>
+            <div class="post-footer">
+              <!-- <div class="author">
+                <img [src]="post.authorImg" [alt]="post.author" />
+                <span>{{ post.author }}</span>
+              </div> -->
+              <a href="#" class="read-link">Leer más <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="empty-state" *ngIf="postsFiltrados.length === 0">
+        <i class="fas fa-newspaper"></i>
+        <h3>Sin resultados</h3>
+        <p>No hay artículos en esta categoría aún.</p>
+        <button class="btn-primary" (click)="setTab('todos')">Ver todos</button>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button (click)="goPage(paginaActual - 1)" [disabled]="paginaActual === 1">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button *ngFor="let p of getPagesArr()"
+          [class.active]="p === paginaActual"
+          (click)="goPage(p)">{{ p }}</button>
+        <button (click)="goPage(paginaActual + 1)" [disabled]="paginaActual === totalPages">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-block">
+        <h4>Artículos populares</h4>
+        <div class="popular-list">
+          <a href="#" class="popular-item" *ngFor="let post of populares">
+            <img [src]="post.img" [alt]="post.title" />
+            <div>
+              <span class="popular-tag">{{ post.tag }}</span>
+              <p>{{ post.title }}</p>
+              <span class="popular-date">{{ post.date }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</div>

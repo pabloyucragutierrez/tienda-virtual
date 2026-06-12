@@ -1,0 +1,184 @@
+<div class="detalle-page">
+
+  <div class="breadcrumb">
+    <div class="container">
+      <a href="/">Inicio</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="/tienda">Tienda</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Auriculares Pro Max</span>
+    </div>
+  </div>
+
+  <div class="container detalle-layout">
+
+    <div class="gallery-col">
+      <div class="main-img-wrap">
+        <img [src]="imagenes[activeImg]" alt="Producto" class="main-img" />
+        <span class="product-badge" *ngIf="producto.badge">{{ producto.badge }}</span>
+        <button class="fav-btn" [class.active]="isFav" (click)="isFav = !isFav">
+          <i [class]="isFav ? 'fas fa-heart' : 'far fa-heart'"></i>
+        </button>
+      </div>
+      <div class="thumbnails">
+        <button *ngFor="let img of imagenes; let i = index"
+          class="thumb"
+          [class.active]="i === activeImg"
+          (click)="activeImg = i">
+          <img [src]="img" alt="Imagen {{ i + 1 }}" />
+        </button>
+      </div>
+    </div>
+
+    <div class="info-col">
+
+      <div class="info-top">
+        <span class="product-cat">{{ producto.category }}</span>
+        <h1 class="product-name">{{ producto.name }}</h1>
+        <div class="rating-row">
+          <div class="stars">
+            <i class="fas fa-star" *ngFor="let s of getArr(producto.stars)"></i>
+            <i class="far fa-star" *ngFor="let s of getArr(5 - producto.stars)"></i>
+          </div>
+          <span class="reviews">{{ producto.reviews }} reseñas</span>
+          <span class="divider-dot">·</span>
+          <span class="stock in-stock"><i class="fas fa-circle"></i> En stock</span>
+        </div>
+        <div class="price-row">
+          <span class="price">S/ {{ producto.price }}</span>
+          <span class="old-price" *ngIf="producto.oldPrice">S/ {{ producto.oldPrice }}</span>
+          <span class="discount" *ngIf="producto.oldPrice">
+            -{{ getDiscount() }}%
+          </span>
+        </div>
+        <p class="product-desc">{{ producto.description }}</p>
+      </div>
+
+      <div class="options-block">
+        <div class="option-group">
+          <label>Color: <strong>{{ colorSeleccionado }}</strong></label>
+          <div class="color-options">
+            <button *ngFor="let c of colores"
+              class="color-opt"
+              [class.active]="colorSeleccionado === c.name"
+              [title]="c.name"
+              (click)="colorSeleccionado = c.name">
+              <span [style.background]="c.hex"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <label>Cantidad</label>
+          <div class="qty-wrap">
+            <button (click)="decreaseQty()"><i class="fas fa-minus"></i></button>
+            <span>{{ cantidad }}</span>
+            <button (click)="increaseQty()"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-btns">
+        <button class="btn-cart" (click)="addToCart()">
+          <i class="fas fa-shopping-cart"></i> Agregar al carrito
+        </button>
+        <button class="btn-buy">
+          Comprar ahora
+        </button>
+      </div>
+
+      <div class="added-msg" *ngIf="added">
+        <i class="fas fa-check-circle"></i> ¡Producto agregado al carrito!
+      </div>
+
+      <div class="perks-row">
+        <div class="perk" *ngFor="let p of perks">
+          <i [class]="p.icon"></i>
+          <span>{{ p.label }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container tabs-section">
+    <div class="tabs">
+      <button *ngFor="let tab of tabs"
+        [class.active]="tabActivo === tab"
+        (click)="tabActivo = tab">{{ tab }}</button>
+    </div>
+
+    <div class="tab-content" *ngIf="tabActivo === 'Descripción'">
+      <p>{{ producto.description }}</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde consequatur architecto ea distinctio, sapiente esse odit aut inventore corrupti saepe.</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet dignissimos debitis nobis cum. Quisquam eius dolore obcaecati nostrum quasi consequuntur. Exercitationem aperiam molestias, porro cum deserunt distinctio omnis beatae quisquam..</p>
+    </div>
+
+    <div class="tab-content specs-tab" *ngIf="tabActivo === 'Especificaciones'">
+      <div class="specs-grid">
+        <div class="spec-row" *ngFor="let s of producto.specs">
+          <span class="spec-label">{{ s.label }}</span>
+          <span class="spec-value">{{ s.value }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content reviews-tab" *ngIf="tabActivo === 'Reseñas'">
+      <div class="reviews-summary">
+        <div class="rating-big">
+          <span class="big-num">{{ producto.stars }}.0</span>
+          <div class="stars-big">
+            <i class="fas fa-star" *ngFor="let s of getArr(producto.stars)"></i>
+          </div>
+          <span>{{ producto.reviews }} reseñas</span>
+        </div>
+        <div class="rating-bars">
+          <div class="bar-row" *ngFor="let r of ratingBars">
+            <span>{{ r.stars }}★</span>
+            <div class="bar-track">
+              <div class="bar-fill" [style.width]="r.pct + '%'"></div>
+            </div>
+            <span>{{ r.pct }}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="review-list">
+        <div class="review-card" *ngFor="let r of resenas">
+          <div class="review-header">
+            <img [src]="r.avatar" [alt]="r.name" />
+            <div>
+              <strong>{{ r.name }}</strong>
+              <div class="review-stars">
+                <i class="fas fa-star" *ngFor="let s of getArr(r.stars)"></i>
+              </div>
+            </div>
+            <span class="review-date">{{ r.date }}</span>
+          </div>
+          <p>{{ r.comment }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container related-section">
+    <h2 class="related-title">Productos relacionados</h2>
+    <div class="related-grid">
+      <div class="product-card" *ngFor="let p of relacionados">
+        <div class="product-img-wrap">
+          <img [src]="p.img" [alt]="p.name" />
+          <span class="product-badge" *ngIf="p.badge">{{ p.badge }}</span>
+        </div>
+        <div class="product-info">
+          <span class="product-cat">{{ p.category }}</span>
+          <h3>{{ p.name }}</h3>
+          <div class="product-price-row">
+            <span class="product-price">S/ {{ p.price }}</span>
+            <span class="product-old" *ngIf="p.oldPrice">S/ {{ p.oldPrice }}</span>
+          </div>
+          <button class="btn-cart-sm"><i class="fas fa-shopping-cart"></i> Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

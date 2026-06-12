@@ -1,0 +1,100 @@
+<div class="blog-detalle-page">
+
+  <div class="post-hero">
+    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=1400&q=80" alt="Post" class="hero-img" />
+    <div class="hero-content">
+      <div class="container">
+        <span class="post-tag">Tecnología</span>
+        <h1>Los 10 gadgets imprescindibles de este año</h1>
+        <div class="post-meta">
+          <div class="author">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&q=80" alt="Autor" />
+            <span>Carlos Ramírez</span>
+          </div>
+          <span class="meta-date"><i class="fas fa-calendar-alt"></i> 2 jun 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container post-layout">
+
+    <article class="post-body">
+
+      <div class="post-content">
+        <p class="lead">Cada año trae consigo nuevos dispositivos que prometen cambiar la forma en que vivimos, trabajamos y nos entretenemos. Este 2025 no es la excepción, y hemos reunido los 10 gadgets que definitivamente vale la pena tener.</p>
+
+        <h2>1. Auriculares con cancelación de ruido</h2>
+        <p>La tecnología de cancelación de ruido activa ha alcanzado un nuevo nivel. Los últimos modelos logran aislar completamente el entorno exterior, permitiéndote concentrarte en lo que realmente importa. La inteligencia artificial integrada adapta el nivel de cancelación según el entorno detectado automáticamente.</p>
+
+        <div class="post-img-full">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=900&q=80" alt="Auriculares" />
+          <span>Auriculares Pro Max — cancelación activa de ruido</span>
+        </div>
+
+        <h2>2. Smartwatches con monitoreo de salud</h2>
+        <p>Ya no son solo relojes inteligentes. Los nuevos smartwatches pueden medir la glucosa en sangre de forma no invasiva, detectar fibrilación auricular y analizar la calidad del sueño con sensores de última generación.</p>
+
+        <blockquote>
+          <p>"La tecnología wearable está redefiniendo la medicina preventiva. Millones de personas detectan condiciones de salud antes gracias a sus smartwatches."</p>
+          <cite>— Dr. Ana García, especialista en tecnología médica</cite>
+        </blockquote>
+
+        <h2>3. Laptops ultradelgadas con IA integrada</h2>
+        <p>Las nuevas laptops incorporan procesadores con unidades de procesamiento neuronal dedicadas para tareas de inteligencia artificial locales, sin necesidad de conexión a la nube. Más delgadas, más rápidas y más inteligentes que nunca.</p>
+
+        <div class="post-img-full">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=900&q=80" alt="Laptop" />
+          <span>Laptops de nueva generación con procesadores de IA integrada</span>
+        </div>
+
+        <h2>4. Parlantes portátiles con sonido espacial</h2>
+        <p>Los nuevos parlantes portátiles utilizan algoritmos avanzados para crear una experiencia de sonido 360° que llena cualquier espacio, sin importar su tamaño.</p>
+
+        <h2>5 al 10: Los demás imprescindibles</h2>
+        <p>Completando nuestra lista encontramos: e-readers con pantallas de 300 ppi, robots aspiradores con mapeo inteligente, tabletas de dibujo profesional, cargadores inalámbricos de largo alcance, cámaras de seguridad con IA y gafas de realidad aumentada para uso cotidiano.</p>
+
+        <h2>Conclusión</h2>
+        <p>El 2025 es un año extraordinario para la tecnología de consumo. La inteligencia artificial está permeando todos los dispositivos, haciéndolos más intuitivos y útiles. ¿Ya tienes alguno de estos gadgets?</p>
+      </div>
+
+      <div class="post-tags">
+        <span>Tags:</span>
+        <a href="#" *ngFor="let tag of tags" class="tag-pill">{{ tag }}</a>
+      </div>
+
+      <div class="nav-posts">
+        <a href="#" class="nav-post prev">
+          <span><i class="fas fa-arrow-left"></i> Anterior</span>
+          <strong>Cómo decorar tu sala con estilo nórdico</strong>
+        </a>
+        <a href="#" class="nav-post next">
+          <span>Siguiente <i class="fas fa-arrow-right"></i></span>
+          <strong>Guía de nutrición para deportistas</strong>
+        </a>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+
+      <div class="sidebar-block">
+        <h4>Artículos relacionados</h4>
+        <div class="related-list">
+          <a href="#" class="related-item" *ngFor="let post of relacionados">
+            <img [src]="post.img" [alt]="post.title" />
+            <div>
+              <span class="related-tag">{{ post.tag }}</span>
+              <p>{{ post.title }}</p>
+              <span class="related-date">{{ post.date }}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>

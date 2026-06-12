@@ -40,25 +40,27 @@
           </div>
           <i class="fas fa-chevron-down auth-chevron"></i>
 
-          <div class="user-dropdown" *ngIf="userMenuOpen">
-            <a href="/iniciar-sesion" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+          <div class="user-dropdown" *ngIf="userMenuOpen" (click)="$event.stopPropagation()">
+            <a class="dropdown-item" (click)="openLoginModal()"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
             <a href="/registrarse" class="dropdown-item"><i class="fas fa-user-plus"></i> Registrarse</a>
             <div class="dropdown-divider"></div>
             <a href="/mis-pedidos" class="dropdown-item"><i class="fas fa-box"></i> Mis pedidos</a>
           </div>
         </div>
 
-        <button class="cart-btn">
+        <button class="cart-btn" (click)="openCartSidenav()">
           <i class="fas fa-shopping-cart"></i>
-          <span class="cart-badge">3</span>
+          <span class="cart-badge">{{ cartItems.length }}</span>
         </button>
       </div>
 
     </div>
   </header>
 
+  <!-- Overlay menú lateral izquierdo -->
   <div class="menu-overlay" [class.visible]="menuOpen" (click)="closeMenu()"></div>
 
+  <!-- Nav lateral izquierdo -->
   <nav class="side-nav" [class.open]="menuOpen">
     <div class="side-nav-header">
       <img src="https://kintiny.pe/img/kintiny_azul.png" alt="Logo" class="side-logo" />
@@ -91,7 +93,109 @@
         </a>
       </div>
     </div>
-
   </nav>
+
+  <!-- ===================== MODAL LOGIN ===================== -->
+  <div class="modal-overlay" [class.visible]="loginModalOpen" (click)="closeLoginModal()">
+    <div class="login-modal" (click)="$event.stopPropagation()">
+
+      <!-- Panel izquierdo: formulario -->
+      <div class="modal-form-panel">
+        <h2 class="modal-title">INICIAR SESIÓN</h2>
+
+        <div class="form-group">
+          <label class="form-label">Correo Electrónico:</label>
+          <input type="email" class="form-input" placeholder="Enter email" [(ngModel)]="loginEmail" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contraseña:</label>
+          <div class="password-wrap">
+            <input [type]="showPassword ? 'text' : 'password'" class="form-input" placeholder="Enter password" [(ngModel)]="loginPassword" />
+            <button class="toggle-pass" (click)="showPassword = !showPassword">
+              <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+
+        <button class="btn-login">INGRESAR</button>
+
+        <div class="forgot-box">
+          <p class="forgot-title">¿OLVIDASTE TU CONTRASEÑA?</p>
+          <p class="forgot-desc">Ponte en contacto con tu administrador o proveedor para que te genere una nueva clave de acceso.</p>
+        </div>
+      </div>
+
+      <!-- Panel derecho: bienvenida con wave SVG -->
+      <div class="modal-welcome-panel">
+        <button class="modal-close-btn" (click)="closeLoginModal()">
+          <i class="fas fa-times"></i>
+        </button>
+
+        <div class="welcome-content">
+          <h2 class="welcome-title">¡Bienvenido!</h2>
+          <p class="welcome-desc">Por favor ingrese sus credenciales para iniciar sesión</p>
+          <button class="btn-register">Registrarse!</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== CART SIDENAV ===================== -->
+  <div class="cart-overlay" [class.visible]="cartOpen" (click)="closeCartSidenav()"></div>
+
+  <div class="cart-sidenav" [class.open]="cartOpen">
+    <div class="cart-sidenav-header">
+      <div class="cart-header-title">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Mi Carrito</span>
+        <span class="cart-count-badge">{{ cartItems.length }}</span>
+      </div>
+      <button class="close-cart" (click)="closeCartSidenav()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="cart-body">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <div class="cart-item-img">
+          <i [class]="item.icon"></i>
+        </div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">{{ item.name }}</p>
+          <p class="cart-item-price">S/ {{ item.price.toFixed(2) }}</p>
+        </div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" (click)="decreaseQty(item)">−</button>
+          <span class="qty-val">{{ item.qty }}</span>
+          <button class="qty-btn" (click)="item.qty = item.qty + 1">+</button>
+        </div>
+        <button class="remove-item" (click)="removeItem(item)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+
+      <div class="cart-empty" *ngIf="cartItems.length === 0">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Tu carrito está vacío</p>
+      </div>
+    </div>
+
+    <div class="cart-footer" *ngIf="cartItems.length > 0">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span class="subtotal-amount">S/ {{ getSubtotal().toFixed(2) }}</span>
+      </div>
+      <div class="cart-footer-btns">
+        <button class="btn-checkout">
+          <i class="fas fa-lock"></i> Finalizar pago
+        </button>
+        <button class="btn-view-cart" (click)="closeCartSidenav()">
+          <i class="fas fa-shopping-cart"></i> Ver carrito
+        </button>
+      </div>
+    </div>
+  </div>
 
 </div>

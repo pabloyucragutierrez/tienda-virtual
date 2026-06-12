@@ -1,1 +1,126 @@
-<p>contacto works!</p>
+<div class="contacto-page">
+
+  <div class="contacto-hero">
+    <div class="hero-overlay"></div>
+    <img src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&q=80" alt="Contacto" class="hero-img" />
+    <div class="hero-content">
+      <span class="hero-label">Contáctanos</span>
+      <h1>Estamos aquí<br>para ayudarte</h1>
+      <p>Escríbenos, llámanos o visítanos. Respondemos a la brevedad.</p>
+    </div>
+  </div>
+
+  <div class="container contacto-layout">
+
+    <div class="info-col">
+
+      <div class="info-block">
+        <span class="section-label">Información de contacto</span>
+        <h2>Hablemos</h2>
+        <p>Nuestro equipo está disponible para responder tus dudas, consultas o sugerencias de lunes a sábado.</p>
+      </div>
+
+      <div class="contact-cards">
+        <div class="contact-card" *ngFor="let item of contactInfo">
+          <div class="card-icon"><i [class]="item.icon"></i></div>
+          <div class="card-body">
+            <strong>{{ item.label }}</strong>
+            <span>{{ item.value }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-block">
+        <p>Síguenos en redes</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-col">
+      <div class="form-card">
+        <h3>Envíanos un mensaje</h3>
+        <p>Completa el formulario y te responderemos en menos de 24 horas.</p>
+
+        <form class="contacto-form" (submit)="onSubmit($event)">
+
+          <div class="form-row">
+            <div class="form-group" [class.has-error]="errors['nombre']">
+              <label>Nombre completo</label>
+              <div class="input-wrap">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Tu nombre" [(ngModel)]="form.nombre" name="nombre" (blur)="validate('nombre')" />
+              </div>
+              <span class="error-msg" *ngIf="errors['nombre']">{{ errors['nombre'] }}</span>
+            </div>
+            <div class="form-group" [class.has-error]="errors['email']">
+              <label>Correo electrónico</label>
+              <div class="input-wrap">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="tu@correo.com" [(ngModel)]="form.email" name="email" (blur)="validate('email')" />
+              </div>
+              <span class="error-msg" *ngIf="errors['email']">{{ errors['email'] }}</span>
+            </div>
+          </div>
+
+          <div class="form-group" [class.has-error]="errors['telefono']">
+            <label>Teléfono <span class="optional">(opcional)</span></label>
+            <div class="input-wrap">
+              <i class="fas fa-phone-alt"></i>
+              <input type="tel" placeholder="+51 999 999 999" [(ngModel)]="form.telefono" name="telefono" />
+            </div>
+          </div>
+
+          <div class="form-group" [class.has-error]="errors['asunto']">
+            <label>Asunto</label>
+            <div class="input-wrap">
+              <i class="fas fa-tag"></i>
+              <input type="text" placeholder="¿En qué podemos ayudarte?" [(ngModel)]="form.asunto" name="asunto" (blur)="validate('asunto')" />
+            </div>
+            <span class="error-msg" *ngIf="errors['asunto']">{{ errors['asunto'] }}</span>
+          </div>
+
+          <div class="form-group" [class.has-error]="errors['mensaje']">
+            <label>Mensaje</label>
+            <textarea rows="5" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="form.mensaje" name="mensaje" (blur)="validate('mensaje')"></textarea>
+            <span class="error-msg" *ngIf="errors['mensaje']">{{ errors['mensaje'] }}</span>
+          </div>
+
+          <button type="submit" class="btn-submit" [class.loading]="isLoading" [disabled]="isLoading">
+            <span *ngIf="!isLoading && !sent">Enviar mensaje <i class="fas fa-paper-plane"></i></span>
+            <span *ngIf="isLoading"><i class="fas fa-spinner fa-spin"></i> Enviando...</span>
+            <span *ngIf="sent && !isLoading"><i class="fas fa-check"></i> Mensaje enviado</span>
+          </button>
+
+          <div class="success-msg" *ngIf="sent">
+            <i class="fas fa-check-circle"></i>
+            ¡Gracias! Te responderemos pronto.
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="map-section">
+    <div class="container map-header">
+      <span class="section-label">Dónde estamos</span>
+      <h2>Visítanos en nuestra tienda</h2>
+    </div>
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.470494517525!2d-77.04279492394858!3d-12.046373641469765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8b5d35662c7%3A0x85d60b0f0f0f0f0f!2sLima%2C%20Per%C3%BA!5e0!3m2!1ses!2spe!4v1700000000000"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+
+</div>

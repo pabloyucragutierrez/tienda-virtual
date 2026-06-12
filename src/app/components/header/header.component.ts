@@ -16,6 +16,20 @@ export class HeaderComponent {
   searchQuery = '';
   activeLink = 'inicio';
 
+  // Login modal
+  loginModalOpen = false;
+  loginEmail = '';
+  loginPassword = '';
+  showPassword = false;
+
+  // Cart sidenav
+  cartOpen = false;
+  cartItems: { name: string; price: number; qty: number; icon: string }[] = [
+    { name: 'Zapatillas Nike Air', price: 250.00, qty: 1, icon: 'fas fa-shoe-prints' },
+    { name: 'Polo Básico Blanco',  price: 45.00,  qty: 2, icon: 'fas fa-tshirt' },
+    { name: 'Mochila Deportiva',   price: 120.00, qty: 1, icon: 'fas fa-backpack' },
+  ];
+
   navLinks = [
     { id: 'inicio',   label: 'Inicio',   href: '/',         icon: 'fas fa-home' },
     { id: 'nosotros', label: 'Nosotros', href: '/nosotros', icon: 'fas fa-info-circle' },
@@ -40,16 +54,46 @@ export class HeaderComponent {
     if (this.menuOpen) this.userMenuOpen = false;
   }
 
-  closeMenu(): void {
-    this.menuOpen = false;
-  }
+  closeMenu(): void { this.menuOpen = false; }
 
-  toggleUserMenu(): void {
-    this.userMenuOpen = !this.userMenuOpen;
-  }
+  toggleUserMenu(): void { this.userMenuOpen = !this.userMenuOpen; }
 
   setActive(id: string): void {
     this.activeLink = id;
     this.closeMenu();
+  }
+
+  openLoginModal(): void {
+    this.loginModalOpen = true;
+    this.userMenuOpen = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeLoginModal(): void {
+    this.loginModalOpen = false;
+    document.body.style.overflow = '';
+  }
+
+  openCartSidenav(): void {
+    this.cartOpen = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeCartSidenav(): void {
+    this.cartOpen = false;
+    document.body.style.overflow = '';
+  }
+
+  decreaseQty(item: { name: string; price: number; qty: number; icon: string }): void {
+    if (item.qty > 1) item.qty--;
+    else this.removeItem(item);
+  }
+
+  removeItem(item: { name: string; price: number; qty: number; icon: string }): void {
+    this.cartItems = this.cartItems.filter(i => i !== item);
+  }
+
+  getSubtotal(): number {
+    return this.cartItems.reduce((sum, i) => sum + i.price * i.qty, 0);
   }
 }
