@@ -1026,7 +1026,11 @@
   transition: background 0.2s, color 0.2s, transform 0.15s;
 }
 
-.btn-view-cart:hover {
+.btn-view-cart a {
+  text-decoration: none;
+  color: inherit;
+}
+.btn-view-cart:hover { 
   background: #f4f7fc;
   transform: translateY(-1px);
 }

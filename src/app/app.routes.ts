@@ -7,6 +7,7 @@ import { BlogComponent } from './pages/blog/blog.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { TiendaDetalleComponent } from './pages/tienda-detalle/tienda-detalle.component';
 import { BlogDetalleComponent } from './pages/blog-detalle/blog-detalle.component';
+import { CarritoComponent } from './pages/carrito/carrito.component';
 
 export const routes: Routes = [
   {
@@ -25,18 +26,22 @@ export const routes: Routes = [
     path: 'tienda/:id',
     component: TiendaDetalleComponent,
   },
-  // {
-  //   path: 'blog',
-  //   component: BlogComponent,
-  // },
-  // {
-  //   path: 'blog/:id',
-  //   component: BlogDetalleComponent,
-  // },
-  // {
-  //   path: 'contacto',
-  //   component: ContactoComponent,
-  // },
+  {
+    path: 'blog',
+    component: BlogComponent,
+  },
+  {
+    path: 'blog/:id',
+    component: BlogDetalleComponent,
+  },
+  {
+    path: 'contacto',
+    component: ContactoComponent,
+  },
+  {
+    path: 'carrito',
+    component: CarritoComponent,
+  },
   {
     path: 'iniciar-sesion',
     component: LoginComponent,
